@@ -15,7 +15,9 @@ return new class extends Migration
     {
         // Acessar a tabela 'products' e nela criar uma coluna 'min_quantity'.
         Schema::table('products', function(Blueprint $table) {
-            $table->int('min_quantity')->default(1);
+            $table->integer('min_quantity')
+            ->default(1)
+            ->after('quantity'); // onde vai ficar
         });
     }
 
@@ -26,6 +28,9 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        // Faz a exclusão desta coluna
+        Schema::table('products', function(Blueprint $table) {
+            $table->dropColumn('min_quantity');
+        });
     }
 };
